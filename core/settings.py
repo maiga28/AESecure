@@ -10,19 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
+# from pathlib import Path
+# import os
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
+load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-9u!3=(o5vzh_6yaw-8&-(%8taf(@*cl=^05^zaer&ch=n*g$!l')
+
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9u!3=(o5vzh_6yaw-8&-(%8taf(@*cl=^05^zaer&ch=n*g$!l'
+# SECRET_KEY = 'django-insecure-9u!3=(o5vzh_6yaw-8&-(%8taf(@*cl=^05^zaer&ch=n*g$!l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'crypto_app',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +137,5 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Clé AES pour le chiffrement (à changer en production !)
+AES_SECRET_KEY = os.getenv('AES_SECRET_KEY', 'ma-cle-secrete-32-caractères!!')

@@ -1,101 +1,71 @@
-<!-- templates/index.html -->
-
-<!-- templates/index.html -->
-
-{% extends "_base.html" %}
+{% extends '_base.html' %}
 
 {% block content %}
-<section class="text-gray-600 body-font relative">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-col text-center w-full mb-12">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Chiffrement AES</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-            AES (Advanced Encryption Standard) est un algorithme de chiffrement symétrique
-            qui transforme les données en blocs de 128 bits à l'aide d'une clé secrète.
-            Cette section permet de chiffrer et déchiffrer un message.
+<!-- Hero Section -->
+<div class="max-w-screen-xl mx-auto px-4 py-12">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            Chiffrement AES Sécurisé
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            Protégez vos données sensibles avec l'algorithme de chiffrement AES-256, 
+            le standard mondial de sécurité.
         </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'crypto_app:encrypt' %}" 
+               class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                🔒 Chiffrer un message
+            </a>
+            <a href="{% url 'crypto_app:decrypt' %}" 
+               class="px-6 py-3 border border-gray-300 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors">
+                🔑 Déchiffrer un message
+            </a>
+        </div>
     </div>
-    <div class="container flex flex-row w-full mb-6">
-        <div class="p-2 w-full">
-          <button class="flex mx-auto text-white bg-cyan-500 border-0 py-2 px-8 focus:outline-none hover:bg-cyan-600 rounded text-lg">Chiffrer</button>
-        </div>
-        <div class="p-2 w-full">
-          <button class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">Déchiffrer</button>
-        </div>
-    </div>
-    <div class="lg:w-1/2 md:w-2/3 mx-auto">
-      <div class="flex flex-wrap -m-2">
-        <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="name" class="leading-7 text-sm text-gray-600">Clé secrète (doit être 16, 24 ou 32 octets)</label>
-            <input type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div>
-        <!-- <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-            <input type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div> -->
-        <div class="p-2 w-full">
-          <div class="relative">
-            <label for="message" class="leading-7 text-sm text-gray-600">Chiffrement AES</label>
-            <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-          </div>
-        </div>
-        <div class="p-2 w-full">
-          <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-        </div>
-        <div class="p-2 w-full">
-            <div class="relative">
-                <label for="message" class="leading-7 text-sm text-gray-600">Resultat</label>
-                <textarea 
-                    id="hs-clipboard-basic" 
-                    name="message" 
-                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                    placeholder="Entrez votre message ici"
-                ></textarea>            
+
+    <!-- Features Grid -->
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-2xl">🔐</span>
             </div>
-
-            <button 
-                type="button" 
-                class="js-clipboard-example mt-2 p-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:ring-indigo-500"
-                data-clipboard-target="hs-clipboard-basic" 
-                data-clipboard-action="copy" 
-                data-clipboard-success-text="Copied"
-            >
-                <!-- Icone par défaut -->
-                <svg class="js-clipboard-default w-6 h-6 group-hover:rotate-6 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                </svg>
-
-                <!-- Icone success -->
-                <svg class="js-clipboard-success hidden w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </button>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Chiffrement AES-256
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Utilisez l'algorithme de chiffrement le plus sécurisé au monde 
+                avec des clés de 256 bits.
+            </p>
         </div>
-      </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-2xl">🔑</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Clés Personnalisées
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Utilisez vos propres clés de chiffrement ou laissez le système 
+                générer des clés sécurisées.
+            </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-2xl">💾</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Historique Sécurisé
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Consultez l'historique de vos messages chiffrés de manière 
+                sécurisée et organisée.
+            </p>
+        </div>
     </div>
-  </div>
-  
-</section>
-<!-- <div class="inline-flex items-center gap-x-3">
-  <div id="hs-clipboard-basic" class="text-sm font-medium text-gray-800 dark:text-white">
-    npm install preline
-  </div>
-
-  <button type="button" class="js-clipboard-example p-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-clipboard-target="#hs-clipboard-basic" data-clipboard-action="copy" data-clipboard-success-text="Copied">
-    <svg class="js-clipboard-default size-4 group-hover:rotate-6 transition" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-    </svg>
-
-    <svg class="js-clipboard-success hidden size-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-  </button>
-</div> -->
-
-{% endblock content %}
+</div>
+{% endblock %}
