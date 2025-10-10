@@ -67,11 +67,38 @@ def decrypt_view(request):
     context['form'] = form
     return render(request, 'crypto_app/decrypt.html', context)
 
+
+# crypto_app/views.py
+from django.utils import timezone
+from datetime import timedelta
+from django.core.paginator import Paginator
+
 def messages_view(request):
     """Affiche les messages chiffrés de l'utilisateur"""
     if not request.user.is_authenticated:
         messages.warning(request, "Veuillez vous connecter pour voir vos messages.")
         return redirect('admin:login')
     
-    user_messages = EncryptedMessage.objects.filter(user=request.user)
-    return render(request, 'crypto_app/messages.html', {'messages': user_messages})
+    user_messages = EncryptedMessage.objects.filter(user=request.user).order_by('-created_at')
+    
+    # Statistiques
+    today = timezone.now().date()
+    month_start = today.replace(day=1)
+    
+    messages_this_month = user_messages.filter(created_at__gte=month_start).count()
+    messages_today = user_messages.filter(created_at__date=today).count()
+    unique_keys = user_messages.exclude(encryption_key='').values('encryption_key').distinct().count()
+    
+    # Pagination
+    paginator = Paginator(user_messages, 10)  # 10 messages par page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'messages': page_obj,
+        'messages_this_month': messages_this_month,
+        'messages_today': messages_today,
+        'unique_keys': unique_keys,
+    }
+    
+    return render(request, 'crypto_app/messages.html', context)

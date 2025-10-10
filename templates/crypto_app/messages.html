@@ -1,0 +1,452 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+            <span class="text-3xl">📨</span>
+            Mes Messages Chiffrés
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">
+            Gérer et consulter l'historique de vos messages sécurisés
+        </p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Messages</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ messages|length }}</p>
+                </div>
+                <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                    <span class="text-2xl">📊</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Ce Mois</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ messages_this_month }}</p>
+                </div>
+                <div class="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+                    <span class="text-2xl">📈</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Aujourd'hui</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ messages_today }}</p>
+                </div>
+                <div class="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                    <span class="text-2xl">🕐</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Clés Utilisées</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ unique_keys }}</p>
+                </div>
+                <div class="p-3 bg-orange-100 dark:bg-orange-900 rounded-lg">
+                    <span class="text-2xl">🔑</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div class="flex items-center gap-3">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Historique des Messages</h2>
+            {% if messages %}
+            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                {{ messages|length }}
+            </span>
+            {% endif %}
+        </div>
+        
+        <div class="flex gap-3">
+            <button onclick="clearAllMessages()" class="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30 transition-colors">
+                🗑️ Tout supprimer
+            </button>
+            <button onclick="exportMessages()" class="px-4 py-2 text-sm font-medium text-green-600 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-900/30 transition-colors">
+                📤 Exporter
+            </button>
+        </div>
+    </div>
+
+    <!-- Messages List -->
+    {% if messages %}
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-600">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Message
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Clé
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Date
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    {% for message in messages %}
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors" id="message-{{ message.id }}">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                                    <span class="text-lg">🔒</span>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900 dark:text-white max-w-xs truncate">
+                                        {{ message.original_text|truncatechars:50 }}
+                                    </div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-mono truncate max-w-xs">
+                                        {{ message.encrypted_text|truncatechars:30 }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center gap-2">
+                                {% if message.encryption_key %}
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+                                    <span>🔑</span> Personnalisée
+                                </span>
+                                {% else %}
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                    <span>⚙️</span> Par défaut
+                                </span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                            <div class="flex flex-col">
+                                <span>{{ message.created_at|date:"d/m/Y" }}</span>
+                                <span class="text-xs">{{ message.created_at|date:"H:i" }}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div class="flex items-center gap-2">
+                                <button onclick="decryptMessage('{{ message.id }}')" 
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors">
+                                    <span>🔓</span> Déchiffrer
+                                </button>
+                                <button onclick="copyEncryptedText('{{ message.encrypted_text }}')" 
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-gray-700/50 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors">
+                                    <span>📋</span> Copier
+                                </button>
+                                <button onclick="deleteMessage('{{ message.id }}')" 
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30 transition-colors">
+                                    <span>🗑️</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if messages.has_other_pages %}
+    <div class="flex justify-center mt-8">
+        <nav class="flex items-center gap-1">
+            {% if messages.has_previous %}
+            <a href="?page={{ messages.previous_page_number }}" class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700">
+                Précédent
+            </a>
+            {% endif %}
+
+            {% for num in messages.paginator.page_range %}
+                {% if messages.number == num %}
+                <span class="px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-300 rounded-lg dark:bg-blue-900 dark:border-blue-700 dark:text-blue-400">
+                    {{ num }}
+                </span>
+                {% else %}
+                <a href="?page={{ num }}" class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700">
+                    {{ num }}
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if messages.has_next %}
+            <a href="?page={{ messages.next_page_number }}" class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700">
+                Suivant
+            </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <!-- Empty State -->
+    <div class="text-center py-16">
+        <div class="mx-auto w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6">
+            <span class="text-3xl">📭</span>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Aucun message</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+            Vous n'avez pas encore de messages chiffrés. Commencez par chiffrer votre premier message pour le voir apparaître ici.
+        </p>
+        <a href="{% url 'crypto_app:encrypt' %}" 
+           class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+            <span>🔒</span>
+            Chiffrer mon premier message
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Decryption Modal -->
+<div id="decryptionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <span>🔓</span>
+                Message Déchiffré
+            </h3>
+            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Texte déchiffré :
+            </label>
+            <div id="decryptedText" class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white font-mono text-sm whitespace-pre-wrap max-h-60 overflow-y-auto">
+            </div>
+        </div>
+        
+        <div class="flex justify-end gap-3">
+            <button onclick="copyDecryptedText()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600 transition-colors">
+                📋 Copier
+            </button>
+            <button onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                Fermer
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Modal functions
+function showModal() {
+    document.getElementById('decryptionModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('decryptionModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Message actions
+function decryptMessage(messageId) {
+    // Pour l'instant on simule le déchiffrement
+    // Dans la vraie implémentation, tu ferais un appel AJAX au serveur
+    const messageElement = document.getElementById(`message-${messageId}`);
+    const originalText = "Ceci est un exemple de texte déchiffré. Dans l'implémentation réelle, cela viendrait du serveur.";
+    
+    document.getElementById('decryptedText').textContent = originalText;
+    showModal();
+}
+
+function copyEncryptedText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('Texte chiffré copié dans le presse-papier !', 'success');
+    }).catch(() => {
+        showNotification('Erreur lors de la copie', 'error');
+    });
+}
+
+function copyDecryptedText() {
+    const text = document.getElementById('decryptedText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('Texte déchiffré copié dans le presse-papier !', 'success');
+        closeModal();
+    }).catch(() => {
+        showNotification('Erreur lors de la copie', 'error');
+    });
+}
+
+function deleteMessage(messageId) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible.')) {
+        // Simulation de suppression - À remplacer par un appel AJAX
+        const messageElement = document.getElementById(`message-${messageId}`);
+        messageElement.style.transition = 'all 0.3s ease';
+        messageElement.style.opacity = '0';
+        messageElement.style.transform = 'translateX(-100%)';
+        
+        setTimeout(() => {
+            messageElement.remove();
+            showNotification('Message supprimé avec succès', 'success');
+            updateMessageCount();
+        }, 300);
+    }
+}
+
+function clearAllMessages() {
+    if (confirm('Êtes-vous sûr de vouloir supprimer tous vos messages ? Cette action est irréversible.')) {
+        const messageElements = document.querySelectorAll('[id^="message-"]');
+        messageElements.forEach((element, index) => {
+            element.style.transition = 'all 0.3s ease';
+            element.style.opacity = '0';
+            element.style.transform = 'translateX(-100%)';
+            
+            setTimeout(() => {
+                element.remove();
+            }, 300 + (index * 50));
+        });
+        
+        setTimeout(() => {
+            showNotification('Tous les messages ont été supprimés', 'success');
+            updateMessageCount();
+        }, 500 + (messageElements.length * 50));
+    }
+}
+
+function exportMessages() {
+    showNotification('Fonctionnalité d\'export bientôt disponible !', 'info');
+}
+
+function updateMessageCount() {
+    const count = document.querySelectorAll('[id^="message-"]').length;
+    const countBadge = document.querySelector('.bg-blue-100');
+    if (countBadge) {
+        countBadge.textContent = count;
+    }
+    
+    // Mettre à jour la carte de statistiques
+    const totalMessagesElement = document.querySelector('.text-2xl.font-bold');
+    if (totalMessagesElement) {
+        totalMessagesElement.textContent = count;
+    }
+}
+
+function showNotification(message, type) {
+    // Créer une notification toast
+    const toast = document.createElement('div');
+    const bgColor = type === 'success' ? 'bg-green-500' : 
+                   type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+    
+    toast.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 text-white font-medium ${bgColor} transform translate-x-full transition-transform duration-300`;
+    toast.textContent = message;
+    
+    document.body.appendChild(toast);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+        toast.classList.remove('translate-x-full');
+    }, 10);
+    
+    // Animation de sortie après 3 secondes
+    setTimeout(() => {
+        toast.classList.add('translate-x-full');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Close modal on ESC key or background click
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+document.getElementById('decryptionModal').addEventListener('click', (e) => {
+    if (e.target.id === 'decryptionModal') {
+        closeModal();
+    }
+});
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page Mes Messages chargée');
+});
+</script>
+
+<style>
+/* Styles supplémentaires pour les animations */
+.transition-colors {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.hidden {
+    display: none;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.z-50 {
+    z-index: 50;
+}
+
+.transform {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-full {
+    --tw-translate-x: 100%;
+}
+
+.transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.whitespace-pre-wrap {
+    white-space: pre-wrap;
+}
+
+.max-h-60 {
+    max-height: 15rem;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+</style>
+{% endblock %}

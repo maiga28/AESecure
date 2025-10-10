@@ -29,3 +29,23 @@ class EncryptedMessage(models.Model):
         verbose_name = "Message chiffré"
         verbose_name_plural = "Messages chiffrés"
         ordering = ['-created_at']
+
+# crypto_app/models.py (ajout)
+class UserProfile(models.Model):
+    USER_TIERS = [
+        ('free', 'Gratuit'),
+        ('premium', 'Premium'),
+        ('enterprise', 'Entreprise'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    tier = models.CharField(max_length=20, choices=USER_TIERS, default='free')
+    subscription_date = models.DateTimeField(null=True, blank=True)
+    storage_limit = models.BigIntegerField(default=10485760)  # 10MB pour free
+    
+    def __str__(self):
+        return f"Profil de {self.user.username}"
+    
+    class Meta:
+        verbose_name = "Profil Utilisateur"
+        verbose_name_plural = "Profils Utilisateur"
