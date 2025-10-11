@@ -42,7 +42,7 @@ if DEBUG:
         BASE_DIR / "static",  # or os.path.join(BASE_DIR, 'static')
     ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['maiga28.pythonanywhere.com']
 
 
 # Application definition
