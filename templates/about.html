@@ -1,0 +1,107 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            À Propos d'AESecure
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+            Découvrez l'histoire derrière votre plateforme de chiffrement sécurisée
+        </p>
+    </div>
+
+    <!-- Mission -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mb-8">
+        <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center">
+                    <span class="text-2xl">🎯</span>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Notre Mission</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                    AESecure a été créé avec une vision simple : rendre le chiffrement AES accessible à tous. 
+                    Nous croyons que la sécurité numérique ne devrait pas être réservée aux experts en cryptographie.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-xl">🔐</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Sécurité Maximale</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Utilisation de l'algorithme AES-256, le standard de chiffrement adopté par le gouvernement américain et les institutions financières mondiales.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-xl">⚡</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Performance Optimale</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Chiffrement et déchiffrement en temps réel avec une interface utilisateur fluide et responsive.
+            </p>
+        </div>
+    </div>
+
+    <!-- Creator Section -->
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-shrink-0">
+                <img src="https://infosidimaiga.web.app/images/about.jpg" 
+                     alt="Maiga28" 
+                     class="w-32 h-32 rounded-2xl object-cover border-4 border-white/20">
+            </div>
+            <div class="flex-1">
+                <h2 class="text-2xl font-bold mb-4">Créé par Maiga28</h2>
+                <p class="text-blue-100 text-lg mb-4">
+                    Développeur passionné par la sécurité informatique et les technologies web modernes. 
+                    Je crée des solutions innovantes pour répondre aux défis numériques contemporains.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://infosidimaiga.web.app" 
+                       class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+                        <span>🌐</span>
+                        Portfolio
+                    </a>
+                    <a href="https://github.com/Maiga28" 
+                       class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+                        <span>💻</span>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+        <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">AES-256</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Algorithme</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl font-bold text-green-600 dark:text-green-400">100%</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Open Source</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Données collectées</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">24/7</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Disponible</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

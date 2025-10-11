@@ -146,32 +146,273 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-900 m-4">
-        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-            <div class="sm:flex sm:items-center sm:justify-between">
-                <a href="{% url 'crypto_app:home' %}" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="https://infosidimaiga.web.app/images/about.jpg" class="h-8" alt="AESecure Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AESecure</span>
-                </a>
-                <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+<!-- templates/footer.html -->
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <!-- Main Footer Content -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Brand Column -->
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="https://infosidimaiga.web.app/images/about.jpg" class="h-10 w-10 rounded-lg" alt="AESecure Logo">
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white">AESecure</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+                    Plateforme de chiffrement sécurisée utilisant l'algorithme AES-256. 
+                    Protégez vos messages sensibles avec une technologie de niveau militaire.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://github.com/Maiga28" 
+                       class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+                        <span class="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">💻</span>
+                    </a>
+                    <a href="https://infosidimaiga.web.app" 
+                       class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+                        <span class="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">🌐</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Column -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Navigation</h3>
+                <ul class="space-y-3">
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">À propos</a>
+                        <a href="{% url 'crypto_app:home' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>🏠</span>
+                            Accueil
+                        </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Politique de confidentialité</a>
+                        <a href="{% url 'crypto_app:encrypt' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>🔒</span>
+                            Chiffrer
+                        </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Licence</a>
+                        <a href="{% url 'crypto_app:decrypt' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>🔑</span>
+                            Déchiffrer
+                        </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline">Contact</a>
+                        <a href="{% url 'crypto_app:messages' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>📨</span>
+                            Mes Messages
+                        </a>
                     </li>
                 </ul>
             </div>
-            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://infosidimaiga.web.app" class="hover:underline">Maiga28™</a>. Tous droits réservés.</span>
+
+            <!-- Legal Column -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Informations</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="{% url 'about' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>ℹ️</span>
+                            À propos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'privacy' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>🔒</span>
+                            Confidentialité
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'license' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>📜</span>
+                            Licence
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
+                            <span>📧</span>
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </footer>
+
+        <!-- Security Badges -->
+        <div class="border-t border-gray-200 dark:border-gray-800 pt-8 mb-8">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <div class="flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                    <span class="text-green-600">🔐</span>
+                    <span class="text-sm font-medium text-green-800 dark:text-green-300">AES-256</span>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                    <span class="text-blue-600">⚡</span>
+                    <span class="text-sm font-medium text-blue-800 dark:text-blue-300">Open Source</span>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                    <span class="text-purple-600">🔒</span>
+                    <span class="text-sm font-medium text-purple-800 dark:text-purple-300">Zero Knowledge</span>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full">
+                    <span class="text-orange-600">🌍</span>
+                    <span class="text-sm font-medium text-orange-800 dark:text-orange-300">HTTPS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <!-- Copyright -->
+                <div class="text-center md:text-left">
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        © 2025 <a href="https://infosidimaiga.web.app" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-semibold">Maiga28</a>. Tous droits réservés.
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-500 text-xs mt-1">
+                        Construit avec ❤️ en utilisant Django & Tailwind CSS
+                    </p>
+                </div>
+
+                <!-- Technical Info -->
+                <div class="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+                    <div class="flex items-center gap-2">
+                        <span>🐍</span>
+                        <span>Python</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>🎨</span>
+                        <span>Tailwind</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>🔐</span>
+                        <span>AES-256</span>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="flex gap-4">
+                    <button onclick="toggleDarkMode()" 
+                            class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                            title="Basculer le mode sombre">
+                        <span class="dark-mode-icon">🌙</span>
+                        <span class="light-mode-icon hidden">☀️</span>
+                    </button>
+                    
+                    <a href="#top" 
+                       class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                       title="Retour en haut">
+                        ⬆️
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Script -->
+<script>
+// Back to top functionality
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Dark mode toggle
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    
+    if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    
+    updateDarkModeIcons();
+}
+
+function updateDarkModeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const darkIcons = document.querySelectorAll('.dark-mode-icon');
+    const lightIcons = document.querySelectorAll('.light-mode-icon');
+    
+    if (isDark) {
+        darkIcons.forEach(icon => icon.classList.add('hidden'));
+        lightIcons.forEach(icon => icon.classList.remove('hidden'));
+    } else {
+        darkIcons.forEach(icon => icon.classList.remove('hidden'));
+        lightIcons.forEach(icon => icon.classList.add('hidden'));
+    }
+}
+
+// Initialize dark mode from localStorage
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+    }
+    
+    updateDarkModeIcons();
+});
+
+// Show/hide back to top button based on scroll
+window.addEventListener('scroll', function() {
+    const backToTopBtn = document.querySelector('a[href="#top"]');
+    if (backToTopBtn) {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.remove('hidden');
+        } else {
+            backToTopBtn.classList.add('hidden');
+        }
+    }
+});
+</script>
+
+<style>
+/* Smooth transitions for dark mode */
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+</style>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>

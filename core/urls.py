@@ -17,10 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .views import index,dechiffrement
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('', include('crypto_app.urls')),
-    path('dechiffrement/', dechiffrement, name='dechiffrement')
+    path('dechiffrement/', dechiffrement, name='dechiffrement'),
+    ###########################################################
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('privacy/', TemplateView.as_view(template_name='privacy.html'), name='privacy'),
+    path('license/', TemplateView.as_view(template_name='license.html'), name='license'),
+    path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
+    ###########################################################
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

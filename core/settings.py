@@ -33,7 +33,14 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-9u!3=(o5vzh_6yaw-8&
 # SECRET_KEY = 'django-insecure-9u!3=(o5vzh_6yaw-8&-(%8taf(@*cl=^05^zaer&ch=n*g$!l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# In settings.py
 DEBUG = True
+
+# For development, add this:
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",  # or os.path.join(BASE_DIR, 'static')
+    ]
 
 ALLOWED_HOSTS = []
 
@@ -125,13 +132,38 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+# STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
-COMPRESS_ROOT = BASE_DIR / 'static'
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-COMPRESS_ENABLED = True
+# STATIC_URL = 'static/'
+# COMPRESS_ROOT = BASE_DIR / 'static'
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+# COMPRESS_ENABLED = True
+
+# STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+import os
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+from pathlib import Path
+
+# BASE_DIR = Path(__file__).resolve().parent.parent
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR / 'static'
+# COMPRESS_ROOT = BASE_DIR / 'static'
+
+# COMPRESS_ENABLED = True
+# STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static/'
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

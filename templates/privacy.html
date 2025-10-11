@@ -1,0 +1,126 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Politique de Confidentialité
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+            Comment nous protégeons vos données et respectons votre vie privée
+        </p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+        <!-- Introduction -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Notre Engagement</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Chez AESecure, nous prenons votre vie privée au sérieux. Cette politique explique comment nous collectons, 
+                utilisons et protégeons vos informations.
+            </p>
+        </div>
+
+        <!-- Data Collection -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">🔍 Collecte des Données</h2>
+            <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                    <span class="text-green-500 mt-1">✅</span>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Données de connexion</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Adresse email et nom d'utilisateur pour la création de compte</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-500 mt-1">✅</span>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Messages chiffrés</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Stockés de manière sécurisée avec chiffrement AES-256</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-red-500 mt-1">❌</span>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Données non collectées</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Nous ne collectons PAS vos clés de chiffrement, adresse IP, ou données de navigation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Protection -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">🛡️ Protection des Données</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Chiffrement de Bout en Bout</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Vos messages sont chiffrés avant d'être stockés dans notre base de données</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Aucun Accès aux Clés</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Nous n'avons pas accès à vos clés de chiffrement personnelles</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Suppression des Données</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Vous pouvez supprimer vos messages et compte à tout moment</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Conformité RGPD</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Respect des réglementations européennes sur la protection des données</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cookies -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">🍪 Cookies</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Nous utilisons uniquement des cookies techniques essentiels au fonctionnement de l'application. 
+                Aucun cookie de suivi ou publicitaire n'est utilisé.
+            </p>
+        </div>
+
+        <!-- Your Rights -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">📋 Vos Droits</h2>
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="text-blue-500">▶</span>
+                    <span class="text-gray-600 dark:text-gray-400">Droit d'accès à vos données</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-blue-500">▶</span>
+                    <span class="text-gray-600 dark:text-gray-400">Droit de rectification</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-blue-500">▶</span>
+                    <span class="text-gray-600 dark:text-gray-400">Droit à l'effacement</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-blue-500">▶</span>
+                    <span class="text-gray-600 dark:text-gray-400">Droit à la portabilité des données</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Questions ?</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Si vous avez des questions concernant cette politique de confidentialité, n'hésitez pas à nous contacter.
+            </p>
+            <a href="{% url 'contact' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                <span>📧</span>
+                Nous Contacter
+            </a>
+        </div>
+
+        <div class="mt-8 text-sm text-gray-500 dark:text-gray-400 text-center">
+            Dernière mise à jour : {{ "now"|date:"d/m/Y" }}
+        </div>
+    </div>
+</div>
+{% endblock %}
